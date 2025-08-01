@@ -4,7 +4,7 @@
   top: 125%;
   right: 0;
   display: flex;
-  min-width: 25rem;
+  width: 100%;
   background-color: #fff;
   max-height: 60vh;
   border-top: 6px solid rgb(3, 4, 78);
@@ -41,7 +41,7 @@
 
 .search-results-list-container {
   overflow-y: auto;
-  min-width: 24rem;
+  width: 100%;
 }
 
 .search-results-list {
@@ -102,4 +102,13 @@
   text-decoration: line-through;
   color: #777;
   font-size: 0.75rem;
+}
+
+@media (min-width: 1024px) {
+  .search-results-container {
+    min-width: 25rem;
+  }
+  .search-results-list-container {
+    min-width: 24rem;
+  }
 }

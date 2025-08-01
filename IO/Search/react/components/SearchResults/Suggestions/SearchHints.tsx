@@ -47,7 +47,7 @@ export function SearchHints({ showPopular, showRecent }: SearchHintsProps) {
   const { data: recentSearchesData } = useQuery(getRecentSearchesQuery, {
     variables: {
       indexId,
-      clientUUID: SyneriseTC?.uuid,
+      clientUUID: typeof SyneriseTC !== 'undefined' ? SyneriseTC.uuid : null,
       limit: recentSearchesLimit,
     },
     ssr: false,

@@ -1,7 +1,7 @@
 {
-  "vendor": "{YOUR_VENDOR_NAME}",
+  "vendor": "emeabesttemplatewhirlpool",
   "name": "synerise-search",
-  "version": "0.0.3",
+  "version": "0.0.1",
   "title": "Synerise search",
   "description": "Search powered by Synerise",
   "builders": {
@@ -16,7 +16,9 @@
   "peerDependencies": {
     "synerisepartnerar.synerise-integration": "1.x"
   },
-  "registries": ["smartcheckout"],
+  "registries": [
+    "smartcheckout"
+  ],
   "policies": [],
   "$schema": "https://raw.githubusercontent.com/vtex/node-vtex-api/master/gen/manifest.schema"
 }

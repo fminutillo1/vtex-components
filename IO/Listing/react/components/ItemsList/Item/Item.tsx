@@ -15,8 +15,14 @@ interface ItemProps {
 export function Item({ data, correlationId, searchType, position }: ItemProps) {
   const { link, imageLink, title, price, salePrice, itemId } = data
 
-  const url = new URL(link)
-  const path = url.pathname + url.search
+  const extractNumericPrice = (priceString: string | number): number => {
+    if (typeof priceString === 'number') return priceString
+    const parsed = parseFloat(priceString?.replace(/[^\d.]/g, ''))
+    return isNaN(parsed) ? 0 : parsed
+  }
+
+  const url = new URL(link, window.location.origin)
+  const path = url.pathname + url.search  
 
   const clickHandler = () => {
     if (typeof SR === 'undefined') return
@@ -33,7 +39,10 @@ export function Item({ data, correlationId, searchType, position }: ItemProps) {
     <a href={path} className={styles.item} onClick={clickHandler}>
       <Image imageLink={imageLink} title={title} />
       <div className={styles.title}>{title}</div>
-      <Price price={price.value} salePrice={salePrice.value} />
+      <Price
+        price={extractNumericPrice(price?.value ?? price)}
+        salePrice={extractNumericPrice(salePrice?.value ?? salePrice)}
+      />
     </a>
   )
 }

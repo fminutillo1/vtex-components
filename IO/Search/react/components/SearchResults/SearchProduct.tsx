@@ -14,9 +14,17 @@ interface SearchProductProps {
 export function SearchProduct({ product, position }: SearchProductProps) {
   const { correlationId } = useContext(SearchContext)
   const { culture } = useRuntime()
-  const price = product.price?.value ?? product.price
-  const salePrice = product.salePrice?.value ?? product.salePrice
-  const isSale = price !== salePrice
+
+  const extractNumericPrice = (priceString: string | number): number => {
+    if (typeof priceString === 'number') return priceString
+    const parsed = parseFloat(priceString?.replace(/[^\d.]/g, ''))
+    return isNaN(parsed) ? 0 : parsed
+  }
+
+  const price = extractNumericPrice(product.price?.value ?? product.price)
+  const salePrice = extractNumericPrice(product.salePrice?.value ?? product.salePrice)
+  const isSale = salePrice > 0 && salePrice !== price
+  const finalPrice = isSale ? salePrice : price  
 
   const clickHandler = () => {
     if (typeof SR === 'undefined' || !correlationId) return
@@ -29,7 +37,7 @@ export function SearchProduct({ product, position }: SearchProductProps) {
     })
   }
 
-  const url = new URL(product.link)
+  const url = new URL(product.link, window.location.origin)
   const path = url.pathname + url.search
 
   return (
@@ -58,7 +66,7 @@ export function SearchProduct({ product, position }: SearchProductProps) {
             )}
             <span className={styles['product-price']}>
               <FormattedNumber
-                value={salePrice}
+                value={finalPrice}
                 style="currency"
                 currency={culture.currency}
               />
