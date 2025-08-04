@@ -4,7 +4,6 @@
   top: 125%;
   right: 0;
   display: flex;
-  width: 100%;
   background-color: #fff;
   max-height: 60vh;
   border-top: 6px solid rgb(3, 4, 78);
@@ -106,9 +105,15 @@
 
 @media (min-width: 1024px) {
   .search-results-container {
-    min-width: 25rem;
+    min-width: 100%;
   }
   .search-results-list-container {
     min-width: 24rem;
+  }
+}
+
+@media (max-width: 1024px) {
+  .search-results-container {
+    width: 100%;
   }
 }
