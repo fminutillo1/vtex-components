@@ -13,7 +13,7 @@ interface ItemProps {
 }
 
 export function Item({ data, correlationId, searchType, position }: ItemProps) {
-  const { link, imageLink, title, price, salePrice, itemId } = data
+  const { link, imageLink, title, price, salePrice, itemId, variations } = data
 
   const extractNumericPrice = (priceString: string | number): number => {
     if (typeof priceString === 'number') return priceString
@@ -38,7 +38,7 @@ export function Item({ data, correlationId, searchType, position }: ItemProps) {
   return (
     <a href={path} className={styles.item} onClick={clickHandler}>
       <Image imageLink={imageLink} title={title} />
-      <div className={styles.title}>{title}</div>
+      <div className={styles.title}>{variations.title}</div>
       <Price
         price={extractNumericPrice(price?.value ?? price)}
         salePrice={extractNumericPrice(salePrice?.value ?? salePrice)}

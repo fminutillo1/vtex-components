@@ -53,7 +53,7 @@ export function SearchProduct({ product, position }: SearchProductProps) {
           alt={product.title}
         />
         <div className={styles['product-text']}>
-          <div className={styles['product-title']}>{product.title}</div>
+          <div className={styles['product-title']}>{product?.variations?.title}</div>
           <div className={styles['product-price-box']}>
             {isSale && (
               <span className={styles['product-prev-price']}>
