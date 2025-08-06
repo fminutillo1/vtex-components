@@ -92,6 +92,26 @@ export function Search({
     return () => clearTimeout(timeout)
   }, [query, inputDebounceTime])
 
+  // Close dropdown when search is submitted (Enter or search button)
+  useEffect(() => {
+    const handleKeyDown = (e: KeyboardEvent) => {
+      const isTypingKey =
+        e.key.length === 1 || e.key === 'Backspace' || e.key === 'Delete'
+
+      if (e.key === 'Enter') {
+        setShowResults(false)
+      } else if (isTypingKey) {
+        setShowResults(true)
+      }
+    }
+
+    document.addEventListener('keydown', handleKeyDown)
+
+    return () => {
+      document.removeEventListener('keydown', handleKeyDown)
+    }
+  }, [])
+
   const { data, loading } = useQuery(getSearchQuery, {
     variables: {
       indexId,
